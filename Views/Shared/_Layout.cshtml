@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GameVault</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        :root {
+            --bg-dark: #0d0d1a;
+            --bg-card: #1a1a2e;
+            --accent: #7c3aed;
+            --accent-glow: #a855f7;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+        body { background: var(--bg-dark); color: var(--text-main); font-family: 'Segoe UI', sans-serif; }
+        .navbar-custom {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+        }
+        .navbar-brand-custom {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-glow) !important;
+            letter-spacing: 1px;
+        }
+        .btn-add-game {
+            background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.4rem 1.2rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .btn-add-game:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.5);
+            color: white;
+        }
+        .nav-username { color: var(--text-muted); font-size: 0.9rem; }
+        .btn-logout {
+            background: transparent;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            color: var(--text-muted);
+            border-radius: 6px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.85rem;
+        }
+        .btn-logout:hover { border-color: #ef4444; color: #ef4444; }
+        footer { background: var(--bg-card); border-top: 1px solid rgba(124, 58, 237, 0.2); }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-custom mb-0 px-3">
+            <a class="navbar-brand navbar-brand-custom" asp-controller="Gallery" asp-action="Index">
+                GameVault
+            </a>
+            <div class="ms-auto d-flex align-items-center gap-3">
+                @if (Context.Session.GetString("Username") != null)
+                {
+                    <button class="btn btn-add-game" data-bs-toggle="modal" data-bs-target="#addGameModal">
+                        + Agregar Juego
+                    </button>
+                    <span class="nav-username">@Context.Session.GetString("Username")</span>
+                    <a asp-controller="User" asp-action="Logout" class="btn btn-logout">Salir</a>
+                }
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid px-4 py-3">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="py-3 mt-4">
+        <div class="container text-center">
+            <small class="text-muted">© 2026 GameVault</small>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

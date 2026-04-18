@@ -1,0 +1,101 @@
+@model PaginaVideojuegos.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GameVault - Iniciar Sesión</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; min-height: 100vh;
+            background: #0d0d1a;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+            background-image: radial-gradient(ellipse at 80% 50%, rgba(124,58,237,0.15) 0%, transparent 60%),
+                              radial-gradient(ellipse at 20% 80%, rgba(168,85,247,0.1) 0%, transparent 50%);
+        }
+        .auth-card {
+            background: rgba(26,26,46,0.95);
+            border: 1px solid rgba(124,58,237,0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .auth-title { color: #a855f7; text-align: center; font-size: 1.7rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .auth-subtitle { color: #64748b; text-align: center; font-size: 0.85rem; margin-bottom: 2rem; }
+        .form-label { color: #94a3b8; font-size: 0.85rem; font-weight: 600; }
+        .form-control {
+            background: rgba(15,15,30,0.8);
+            border: 1px solid rgba(124,58,237,0.3);
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 0.65rem 1rem;
+        }
+        .form-control:focus {
+            background: rgba(15,15,30,0.9);
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
+            color: #e2e8f0;
+        }
+        .form-control::placeholder { color: #475569; }
+        .btn-auth {
+            width: 100%;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            transition: all 0.2s;
+        }
+        .btn-auth:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124,58,237,0.4); color: white; }
+        .auth-link { color: #7c3aed; text-decoration: none; }
+        .auth-link:hover { color: #a855f7; }
+        .auth-footer { text-align: center; margin-top: 1.3rem; color: #64748b; font-size: 0.88rem; }
+        .text-danger { font-size: 0.8rem; }
+        .alert-danger { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); color: #fca5a5; border-radius: 8px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <div class="auth-title">GameVault</div>
+        <div class="auth-subtitle">Tu galería de videojuegos</div>
+
+        <form asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 mb-3" style="display:@(ViewContext.ModelState.IsValid ? "none" : "block")"></div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="tu@email.com" autocomplete="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Password" class="form-label">Contraseña</label>
+                <input asp-for="Password" class="form-control" placeholder="Tu contraseña" autocomplete="current-password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn-auth">Iniciar sesión</button>
+        </form>
+
+        <div class="auth-footer">
+            ¿No tienes cuenta? <a asp-action="Register" class="auth-link">Regístrate</a>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

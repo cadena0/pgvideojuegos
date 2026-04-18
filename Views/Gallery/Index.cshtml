@@ -1,0 +1,381 @@
+@model IEnumerable<PaginaVideojuegos.Models.GameEntry>
+@{
+    ViewData["Title"] = "Galería de Juegos";
+}
+
+<style>
+    .gallery-header {
+        padding: 1.5rem 0 1rem;
+        border-bottom: 1px solid rgba(124,58,237,0.2);
+        margin-bottom: 2rem;
+    }
+    .gallery-title { color: #e2e8f0; font-size: 1.6rem; font-weight: 700; margin: 0; }
+    .gallery-count { color: #64748b; font-size: 0.9rem; margin-top: 0.2rem; }
+    .game-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    .game-card {
+        background: #1a1a2e;
+        border: 1px solid rgba(124,58,237,0.2);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.25s;
+        cursor: pointer;
+    }
+    .game-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(124,58,237,0.5);
+        box-shadow: 0 12px 40px rgba(124,58,237,0.2);
+    }
+    .game-img-wrapper {
+        width: 100%;
+        height: 180px;
+        overflow: hidden;
+        background: #0d0d1a;
+        position: relative;
+    }
+    .game-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+    }
+    .game-card:hover .game-img { transform: scale(1.05); }
+    .game-img-error {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1a1a2e, #0d0d1a);
+        color: #475569;
+        font-size: 0.85rem;
+    }
+    .game-body { padding: 1rem 1.2rem 1.2rem; }
+    .game-title { color: #e2e8f0; font-weight: 700; font-size: 1rem; margin-bottom: 0.4rem; line-height: 1.3; }
+    .game-desc {
+        color: #94a3b8;
+        font-size: 0.82rem;
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 0.8rem;
+    }
+    .game-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 0.7rem;
+        border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .game-user { color: #7c3aed; font-size: 0.78rem; font-weight: 600; }
+    .game-date { color: #475569; font-size: 0.75rem; }
+    .empty-state {
+        text-align: center;
+        padding: 5rem 2rem;
+        color: #475569;
+    }
+    .empty-state h3 { color: #64748b; font-size: 1.2rem; }
+    .modal-content {
+        background: #1a1a2e;
+        border: 1px solid rgba(124,58,237,0.4);
+        border-radius: 16px;
+        color: #e2e8f0;
+    }
+    .modal-header {
+        border-bottom: 1px solid rgba(124,58,237,0.2);
+        padding: 1.2rem 1.5rem;
+    }
+    .modal-title { color: #a855f7; font-weight: 700; font-size: 1.1rem; }
+    .btn-close { filter: invert(1) opacity(0.5); }
+    .modal-body { padding: 1.5rem; }
+    .modal-footer { border-top: 1px solid rgba(124,58,237,0.2); padding: 1rem 1.5rem; }
+    .form-label-modal { color: #94a3b8; font-size: 0.85rem; font-weight: 600; }
+    .form-control-modal {
+        background: rgba(13,13,26,0.8);
+        border: 1px solid rgba(124,58,237,0.3);
+        color: #e2e8f0;
+        border-radius: 8px;
+        width: 100%;
+        padding: 0.6rem 0.9rem;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-control-modal:focus {
+        border-color: #7c3aed;
+        box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
+        background: rgba(13,13,26,0.95);
+        color: #e2e8f0;
+    }
+    .form-control-modal::placeholder { color: #475569; }
+    .btn-submit-modal {
+        background: linear-gradient(135deg, #7c3aed, #a855f7);
+        border: none;
+        color: white;
+        font-weight: 700;
+        padding: 0.6rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+    .btn-submit-modal:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(124,58,237,0.4); color: white; }
+    .btn-cancel-modal {
+        background: transparent;
+        border: 1px solid rgba(148,163,184,0.3);
+        color: #94a3b8;
+        border-radius: 8px;
+        padding: 0.6rem 1.2rem;
+    }
+    .btn-cancel-modal:hover { border-color: #64748b; color: #cbd5e1; }
+    .field-error { color: #f87171; font-size: 0.78rem; margin-top: 0.25rem; }
+    .img-preview-container { margin-top: 0.5rem; display: none; }
+    .img-preview { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(124,58,237,0.3); }
+    .toast-success {
+        position: fixed; bottom: 1.5rem; right: 1.5rem;
+        background: rgba(34,197,94,0.15);
+        border: 1px solid rgba(34,197,94,0.3);
+        color: #86efac;
+        border-radius: 10px;
+        padding: 0.8rem 1.3rem;
+        font-size: 0.9rem;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+    }
+    .toast-success.show { opacity: 1; }
+    .detail-img { width: 100%; max-height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem; }
+    .detail-title { font-size: 1.4rem; font-weight: 700; color: #e2e8f0; }
+    .detail-desc { color: #94a3b8; line-height: 1.7; margin-top: 0.7rem; }
+    .detail-meta { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; }
+    .detail-user { color: #a855f7; font-weight: 600; font-size: 0.9rem; }
+    .detail-date { color: #475569; font-size: 0.82rem; }
+    .btn-delete {
+        background: transparent;
+        border: 1px solid rgba(239,68,68,0.3);
+        color: #f87171;
+        border-radius: 6px;
+        padding: 0.1rem 0.45rem;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        line-height: 1.6;
+    }
+    .btn-delete:hover { background: rgba(239,68,68,0.15); border-color: #ef4444; }
+</style>
+
+<div class="gallery-header d-flex justify-content-between align-items-end">
+    <div>
+        <h1 class="gallery-title">Galeria de Juegos</h1>
+        <p class="gallery-count">@Model.Count() juego(s) compartido(s)</p>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <h3>No hay juegos aun</h3>
+        <p>Se el primero en agregar uno con el boton de arriba.</p>
+    </div>
+}
+else
+{
+    <div class="game-grid">
+        @foreach (var entry in Model)
+        {
+            <div class="game-card"
+                 onclick="openDetail('@entry.Title.Replace("'", "\\'")','@entry.ImageUrl','@entry.Description.Replace("'","\\'")', '@@entry.User.Username','@entry.CreatedAt.ToString("dd/MM/yyyy")')">
+                <div class="game-img-wrapper">
+                    <img class="game-img"
+                         src="@entry.ImageUrl"
+                         alt="@entry.Title"
+                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                    <div class="game-img-error" style="display:none;">Imagen no disponible</div>
+                </div>
+                <div class="game-body">
+                    <div class="game-title">@entry.Title</div>
+                    <div class="game-desc">@entry.Description</div>
+                    <div class="game-footer">
+                        <span class="game-user">@entry.User.Username</span>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="game-date">@entry.CreatedAt.ToString("dd/MM/yyyy")</span>
+                            @if (Context.Session.GetInt32("UserId") == entry.UserId)
+                            {
+                                <button class="btn-delete" onclick="deleteEntry(@entry.Id, event)" title="Eliminar">X</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<!-- Modal: Agregar Juego -->
+<div class="modal fade" id="addGameModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Juego a la Galeria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="formErrors" class="mb-3" style="display:none; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:0.7rem 1rem; color:#fca5a5; font-size:0.82rem;"></div>
+
+                <div class="mb-3">
+                    <label class="form-label-modal">Titulo del juego *</label>
+                    <input type="text" id="gameTitle" class="form-control-modal" placeholder="Ej: The Legend of Zelda" maxlength="100" />
+                    <div class="field-error" id="errTitle"></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label-modal">URL de la imagen *</label>
+                    <input type="url" id="gameImageUrl" class="form-control-modal" placeholder="https://ejemplo.com/imagen.jpg" oninput="previewImage(this.value)" />
+                    <div class="field-error" id="errImageUrl"></div>
+                    <div class="img-preview-container" id="previewContainer">
+                        <img id="imgPreview" class="img-preview" src="" alt="Preview" onerror="this.parentElement.style.display='none'" />
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label-modal">Descripcion *</label>
+                    <textarea id="gameDescription" class="form-control-modal" rows="4"
+                              placeholder="Describe el juego, su genero, por que te gusta..." maxlength="1000"
+                              style="resize:vertical; min-height:90px;"></textarea>
+                    <div class="field-error" id="errDescription"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel-modal" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-submit-modal" id="btnSubmitGame" onclick="submitGame()">
+                    <span id="btnText">Publicar en galeria</span>
+                    <span id="btnLoading" style="display:none;">Subiendo...</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Detalle del juego -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <img id="detailImg" class="detail-img" src="" alt="" onerror="this.style.display='none'" />
+                <div class="detail-title" id="detailTitle"></div>
+                <div class="detail-desc" id="detailDesc"></div>
+                <div class="detail-meta">
+                    <span class="detail-user" id="detailUser"></span>
+                    <span class="detail-date" id="detailDate"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast-success" id="toastSuccess">Juego agregado a la galeria</div>
+
+@section Scripts {
+<script>
+    function previewImage(url) {
+        const container = document.getElementById('previewContainer');
+        const img = document.getElementById('imgPreview');
+        if (url && url.startsWith('http')) {
+            img.src = url;
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+        }
+    }
+
+    function clearErrors() {
+        ['errTitle','errImageUrl','errDescription'].forEach(id => document.getElementById(id).textContent = '');
+        document.getElementById('formErrors').style.display = 'none';
+    }
+
+    async function submitGame() {
+        clearErrors();
+        const title = document.getElementById('gameTitle').value.trim();
+        const imageUrl = document.getElementById('gameImageUrl').value.trim();
+        const description = document.getElementById('gameDescription').value.trim();
+
+        let hasError = false;
+        if (!title) { document.getElementById('errTitle').textContent = 'El titulo es requerido'; hasError = true; }
+        if (!imageUrl) { document.getElementById('errImageUrl').textContent = 'La URL de imagen es requerida'; hasError = true; }
+        else if (!imageUrl.startsWith('http')) { document.getElementById('errImageUrl').textContent = 'Debe ser una URL valida (ej: https://...)'; hasError = true; }
+        if (!description) { document.getElementById('errDescription').textContent = 'La descripcion es requerida'; hasError = true; }
+        if (hasError) return;
+
+        const btn = document.getElementById('btnSubmitGame');
+        btn.disabled = true;
+        document.getElementById('btnText').style.display = 'none';
+        document.getElementById('btnLoading').style.display = 'inline';
+
+        try {
+            const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value || '';
+            const response = await fetch('/Gallery/Create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ Title: title, ImageUrl: imageUrl, Description: description, __RequestVerificationToken: token })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                bootstrap.Modal.getInstance(document.getElementById('addGameModal')).hide();
+                document.getElementById('gameTitle').value = '';
+                document.getElementById('gameImageUrl').value = '';
+                document.getElementById('gameDescription').value = '';
+                document.getElementById('previewContainer').style.display = 'none';
+                const toast = document.getElementById('toastSuccess');
+                toast.classList.add('show');
+                setTimeout(() => { toast.classList.remove('show'); location.reload(); }, 1800);
+            } else {
+                const errBox = document.getElementById('formErrors');
+                errBox.style.display = 'block';
+                let msgs = [];
+                for (const key in data.errors) { msgs = msgs.concat(data.errors[key]); }
+                errBox.innerHTML = msgs.map(m => `• ${m}`).join('<br>');
+            }
+        } catch (e) {
+            document.getElementById('formErrors').style.display = 'block';
+            document.getElementById('formErrors').textContent = 'Error al conectar. Intenta de nuevo.';
+        } finally {
+            btn.disabled = false;
+            document.getElementById('btnText').style.display = 'inline';
+            document.getElementById('btnLoading').style.display = 'none';
+        }
+    }
+
+    async function deleteEntry(id, event) {
+        event.stopPropagation();
+        if (!confirm('Eliminar esta entrada?')) return;
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+        const response = await fetch('/Gallery/Delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ id: id, __RequestVerificationToken: token })
+        });
+        const data = await response.json();
+        if (data.success) { location.reload(); } else { alert(data.message); }
+    }
+
+    function openDetail(title, imageUrl, description, username, date) {
+        document.getElementById('detailModalTitle').textContent = title;
+        document.getElementById('detailTitle').textContent = title;
+        document.getElementById('detailImg').src = imageUrl;
+        document.getElementById('detailImg').style.display = 'block';
+        document.getElementById('detailDesc').textContent = description;
+        document.getElementById('detailUser').textContent = username;
+        document.getElementById('detailDate').textContent = date;
+        new bootstrap.Modal(document.getElementById('detailModal')).show();
+    }
+</script>
+@Html.AntiForgeryToken()
+}
