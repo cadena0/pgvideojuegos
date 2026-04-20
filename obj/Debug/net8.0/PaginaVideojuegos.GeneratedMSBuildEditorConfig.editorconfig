@@ -9,59 +9,59 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PaginaVideojuegos
 build_property.RootNamespace = PaginaVideojuegos
-build_property.ProjectDir = /home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/
+build_property.ProjectDir = /home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos
+build_property.MSBuildProjectDirectory = /home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/Gallery/Index.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/Gallery/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR2FsbGVyeS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/Home/Index.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/Home/Privacy.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/Shared/Error.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/Shared/_ValidationScriptsPartial.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/User/Login.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/User/Register.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/User/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/Users/Edit.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/Users/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlcnMvRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/Users/Index.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/Users/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlcnMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/_ViewImports.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/_ViewStart.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/Views/Shared/_Layout.cshtml]
+[/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-kj4eduy3gi

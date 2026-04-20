@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/PaginaVideojuegos.csproj": {}
+    "/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/PaginaVideojuegos.csproj": {}
   },
   "projects": {
-    "/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/PaginaVideojuegos.csproj": {
+    "/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/PaginaVideojuegos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/PaginaVideojuegos.csproj",
+        "projectUniqueName": "/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/PaginaVideojuegos.csproj",
         "projectName": "PaginaVideojuegos",
-        "projectPath": "/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/PaginaVideojuegos.csproj",
-        "packagesPath": "/home/cadena/.nuget/packages/",
-        "outputPath": "/home/cadena/Descargas/PaginaVideojuegos_Completo(2)/PaginaVideojuegos/obj/",
+        "projectPath": "/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/PaginaVideojuegos.csproj",
+        "packagesPath": "/home/csharp/.nuget/packages/",
+        "outputPath": "/home/csharp/Escritorio/paginaVideoJuegos /pgvideojuegos/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/cadena/.nuget/NuGet/NuGet.Config"
+          "/home/csharp/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -70,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.117/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.126/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
